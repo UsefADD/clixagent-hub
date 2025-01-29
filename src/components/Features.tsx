@@ -47,14 +47,6 @@ export const Features = () => {
   return (
     <section className="py-24 bg-gray-900">
       <div className="container mx-auto max-w-7xl px-4">
-        <div className="text-center mb-16 animate-fadeIn">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white">
-            Why Top Affiliates Choose ClixAgents
-          </h2>
-          <p className="text-xl text-gray-400 max-w-2xl mx-auto">
-            Join the platform that empowers affiliates to achieve unprecedented success
-          </p>
-        </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {features.map((feature, index) => (
             <div
