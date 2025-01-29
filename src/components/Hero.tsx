@@ -20,9 +20,6 @@ export const Hero = () => {
             <button className="px-8 py-4 bg-primary text-white rounded-lg font-bold text-lg transition-all hover:translate-y-[-2px] hover:shadow-xl hover:shadow-primary/20 flex items-center gap-2">
               Start Earning Now <ArrowRight className="w-5 h-5" />
             </button>
-            <button className="px-8 py-4 bg-white/10 text-white rounded-lg font-bold text-lg transition-all hover:bg-white/20 backdrop-blur-sm">
-              View Success Stories
-            </button>
           </div>
         </div>
       </div>
