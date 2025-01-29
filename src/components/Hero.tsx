@@ -2,25 +2,26 @@ import { ArrowRight } from "lucide-react";
 
 export const Hero = () => {
   return (
-    <section className="relative min-h-[80vh] flex items-center justify-center overflow-hidden bg-gradient-to-b from-accent to-background px-4">
-      <div className="absolute inset-0 bg-[url('/placeholder.svg')] opacity-5"></div>
+    <section className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 to-gray-800 text-white px-4">
+      <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d')] opacity-10 bg-cover bg-center"></div>
       <div className="container mx-auto max-w-6xl relative z-10">
-        <div className="text-center space-y-6 animate-fadeIn">
-          <div className="inline-block px-4 py-1.5 bg-primary/10 rounded-full mb-4">
-            <span className="text-primary text-sm font-medium">Welcome to ClixAgents</span>
-          </div>
-          <h1 className="text-4xl md:text-6xl font-bold text-foreground max-w-4xl mx-auto leading-tight">
-            Maximize Your Affiliate Marketing Success
+        <div className="text-center space-y-8 animate-fadeIn">
+          <span className="inline-block px-4 py-1.5 bg-primary/20 rounded-full mb-4">
+            <span className="text-primary text-sm font-medium">The #1 Affiliate Marketing Platform</span>
+          </span>
+          <h1 className="text-5xl md:text-7xl font-bold max-w-4xl mx-auto leading-tight bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-300">
+            Turn Your Traffic Into <br />
+            Profitable Conversions
           </h1>
-          <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-xl md:text-2xl text-gray-300 max-w-2xl mx-auto">
             Join thousands of successful affiliates who have transformed their marketing strategy with ClixAgents
           </p>
-          <div className="flex items-center justify-center gap-4 pt-4">
-            <button className="px-8 py-3 bg-primary text-white rounded-lg font-medium transition-all hover:translate-y-[-2px] hover:shadow-lg flex items-center gap-2">
-              Get Started <ArrowRight className="w-4 h-4" />
+          <div className="flex items-center justify-center gap-6 pt-8">
+            <button className="px-8 py-4 bg-primary text-white rounded-lg font-bold text-lg transition-all hover:translate-y-[-2px] hover:shadow-xl hover:shadow-primary/20 flex items-center gap-2">
+              Start Earning Now <ArrowRight className="w-5 h-5" />
             </button>
-            <button className="px-8 py-3 bg-accent text-foreground rounded-lg font-medium transition-all hover:bg-accent/80">
-              Learn More
+            <button className="px-8 py-4 bg-white/10 text-white rounded-lg font-bold text-lg transition-all hover:bg-white/20 backdrop-blur-sm">
+              View Success Stories
             </button>
           </div>
         </div>
