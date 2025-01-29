@@ -1,6 +1,6 @@
 import { MessageSquare } from "lucide-react";
 import { Avatar, AvatarImage, AvatarFallback } from "./ui/avatar";
-import { BrandTelegram, BrandSkype } from "lucide-react";
+import { MessageCircle, Phone } from "lucide-react";
 
 export const Managers = () => {
   const managers = [
@@ -61,11 +61,11 @@ export const Managers = () => {
               <p className="text-gray-400 mb-6">{manager.description}</p>
               <div className="flex flex-col gap-3">
                 <div className="flex items-center gap-2 text-gray-400">
-                  <BrandTelegram className="w-5 h-5" />
+                  <MessageCircle className="w-5 h-5" />
                   <span>{manager.telegram}</span>
                 </div>
                 <div className="flex items-center gap-2 text-gray-400">
-                  <BrandSkype className="w-5 h-5" />
+                  <Phone className="w-5 h-5" />
                   <span>{manager.skype}</span>
                 </div>
               </div>
