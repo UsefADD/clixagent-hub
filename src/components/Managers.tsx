@@ -1,24 +1,31 @@
-import { Users, Award, TrendingUp } from "lucide-react";
+import { Users, MessageSquare, Phone } from "lucide-react";
+import { Avatar, AvatarImage, AvatarFallback } from "./ui/avatar";
 
 export const Managers = () => {
   const managers = [
     {
-      name: "Elite Performance",
-      description: "Top-tier campaign managers dedicated to maximizing your ROI",
-      icon: Award,
-      stats: "95% Success Rate",
+      name: "John Smith",
+      role: "Senior Campaign Manager",
+      description: "Specializing in high-ROI campaigns with 5+ years experience",
+      telegram: "@john_smith",
+      skype: "john.smith.clix",
+      photo: "/placeholder.svg", // Replace with actual photo path
     },
     {
-      name: "Expert Support",
-      description: "24/7 dedicated team to optimize your campaigns",
-      icon: Users,
-      stats: "< 2hr Response Time",
+      name: "Sarah Johnson",
+      role: "Media Buying Expert",
+      description: "Expert in scaling profitable campaigns across multiple verticals",
+      telegram: "@sarah_j",
+      skype: "sarah.johnson.clix",
+      photo: "/placeholder.svg", // Replace with actual photo path
     },
     {
-      name: "Growth Focus",
-      description: "Strategic scaling with proven methodologies",
-      icon: TrendingUp,
-      stats: "3x Average Growth",
+      name: "Mike Wilson",
+      role: "Technical Support Lead",
+      description: "24/7 technical assistance for seamless campaign optimization",
+      telegram: "@mike_wilson",
+      skype: "mike.wilson.clix",
+      photo: "/placeholder.svg", // Replace with actual photo path
     },
   ];
 
@@ -44,12 +51,23 @@ export const Managers = () => {
               className="p-8 rounded-xl bg-gray-900/50 hover:bg-gray-800 transition-all duration-300 animate-fadeIn border border-gray-800 hover:border-primary/50 group"
               style={{ animationDelay: `${index * 150}ms` }}
             >
-              <div className="mb-6">
-                <manager.icon className="w-12 h-12 text-primary group-hover:scale-110 transition-transform duration-300" />
-              </div>
-              <h3 className="text-2xl font-bold mb-3">{manager.name}</h3>
+              <Avatar className="w-24 h-24 mx-auto mb-6">
+                <AvatarImage src={manager.photo} alt={manager.name} />
+                <AvatarFallback>{manager.name[0]}</AvatarFallback>
+              </Avatar>
+              <h3 className="text-2xl font-bold mb-2">{manager.name}</h3>
+              <p className="text-primary mb-3">{manager.role}</p>
               <p className="text-gray-400 mb-6">{manager.description}</p>
-              <div className="text-primary font-bold text-xl">{manager.stats}</div>
+              <div className="flex flex-col gap-3">
+                <div className="flex items-center gap-2 text-gray-400">
+                  <MessageSquare className="w-5 h-5" />
+                  <span>{manager.telegram}</span>
+                </div>
+                <div className="flex items-center gap-2 text-gray-400">
+                  <Phone className="w-5 h-5" />
+                  <span>{manager.skype}</span>
+                </div>
+              </div>
             </div>
           ))}
         </div>
