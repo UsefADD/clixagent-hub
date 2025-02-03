@@ -1,8 +1,13 @@
-import { Link } from "react-router-dom";
+import { useState } from "react";
 import { HandshakeIcon, Users, UserRound, Megaphone } from "lucide-react";
 import { Button } from "./ui/button";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "./ui/dialog";
+import { RegistrationForm } from "./RegistrationForm";
 
 export const Programmes = () => {
+  const [showAffiliateForm, setShowAffiliateForm] = useState(false);
+  const [showInfluencerForm, setShowInfluencerForm] = useState(false);
+
   return (
     <section className="py-24 bg-gradient-to-b from-black to-accent relative overflow-hidden">
       <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1552664730-d307ca884978')] opacity-5 bg-cover bg-center"></div>
@@ -46,7 +51,7 @@ export const Programmes = () => {
                 Weekly payments with low minimum threshold
               </li>
             </ul>
-            <Button size="lg" className="w-full">
+            <Button size="lg" className="w-full" onClick={() => setShowAffiliateForm(true)}>
               Become an Affiliate
             </Button>
           </div>
@@ -77,12 +82,32 @@ export const Programmes = () => {
                 Dedicated influencer support team
               </li>
             </ul>
-            <Button size="lg" className="w-full">
+            <Button size="lg" className="w-full" onClick={() => setShowInfluencerForm(true)}>
               Become an Influencer
             </Button>
           </div>
         </div>
       </div>
+
+      {/* Affiliate Registration Dialog */}
+      <Dialog open={showAffiliateForm} onOpenChange={setShowAffiliateForm}>
+        <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle>Affiliate Registration</DialogTitle>
+          </DialogHeader>
+          <RegistrationForm type="affiliate" />
+        </DialogContent>
+      </Dialog>
+
+      {/* Influencer Registration Dialog */}
+      <Dialog open={showInfluencerForm} onOpenChange={setShowInfluencerForm}>
+        <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle>Influencer Registration</DialogTitle>
+          </DialogHeader>
+          <RegistrationForm type="influencer" />
+        </DialogContent>
+      </Dialog>
     </section>
   );
 };

@@ -1,4 +1,5 @@
 import { ArrowRight, Rocket, Shield, DollarSign } from "lucide-react";
+import { Link } from "react-router-dom";
 
 export const Hero = () => {
   return (
@@ -32,10 +33,12 @@ export const Hero = () => {
             </div>
           </div>
 
-          <div className="flex items-center justify-center gap-6 pt-8">
-            <button className="px-8 py-4 bg-primary text-white rounded-lg font-bold text-lg transition-all hover:translate-y-[-2px] hover:shadow-xl hover:shadow-primary/20 flex items-center gap-2">
-              Start Earning Now <ArrowRight className="w-5 h-5" />
-            </button>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-8">
+            <Link to="/register/affiliate" className="w-full sm:w-auto">
+              <button className="w-full sm:w-auto px-8 py-4 bg-primary text-white rounded-lg font-bold text-lg transition-all hover:translate-y-[-2px] hover:shadow-xl hover:shadow-primary/20 flex items-center justify-center gap-2">
+                Start Earning Now <ArrowRight className="w-5 h-5" />
+              </button>
+            </Link>
           </div>
         </div>
       </div>
