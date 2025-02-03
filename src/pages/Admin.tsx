@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { LogOut, Users, MessageSquare } from "lucide-react";
 
 export default function Admin() {
   const navigate = useNavigate();
@@ -122,18 +123,22 @@ export default function Admin() {
 
   if (isLoading) {
     return (
-      <div className="container mx-auto py-8">
-        <p>Loading...</p>
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        <div className="animate-pulse text-lg font-medium text-gray-600">
+          Loading...
+        </div>
       </div>
     );
   }
 
   if (!isAuthenticated) {
     return (
-      <div className="container mx-auto py-8 max-w-md">
-        <Card>
-          <CardHeader>
-            <CardTitle>Admin Login</CardTitle>
+      <div className="min-h-screen flex items-center justify-center bg-gray-50 p-4">
+        <Card className="w-full max-w-md">
+          <CardHeader className="space-y-1">
+            <CardTitle className="text-2xl font-bold text-center">
+              Admin Login
+            </CardTitle>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSignIn} className="space-y-4">
@@ -147,6 +152,8 @@ export default function Admin() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
+                  className="w-full"
+                  placeholder="admin@example.com"
                 />
               </div>
               <div className="space-y-2">
@@ -159,6 +166,7 @@ export default function Admin() {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
+                  className="w-full"
                 />
               </div>
               <Button type="submit" className="w-full">
@@ -172,26 +180,47 @@ export default function Admin() {
   }
 
   return (
-    <div className="container mx-auto py-8">
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-bold">Admin Dashboard</h1>
-        <Button onClick={handleSignOut} variant="outline">
-          Sign Out
-        </Button>
+    <div className="min-h-screen bg-gray-50">
+      <div className="max-w-[1400px] mx-auto p-4 sm:p-6 lg:p-8">
+        <div className="flex justify-between items-center mb-8">
+          <h1 className="text-3xl font-bold text-gray-900">Admin Dashboard</h1>
+          <Button 
+            onClick={handleSignOut} 
+            variant="outline"
+            className="flex items-center gap-2"
+          >
+            <LogOut className="w-4 h-4" />
+            Sign Out
+          </Button>
+        </div>
+        
+        <Tabs defaultValue="applications" className="w-full space-y-6">
+          <TabsList className="w-full max-w-md mx-auto grid grid-cols-2">
+            <TabsTrigger value="applications" className="flex items-center gap-2">
+              <Users className="w-4 h-4" />
+              Applications
+            </TabsTrigger>
+            <TabsTrigger value="messages" className="flex items-center gap-2">
+              <MessageSquare className="w-4 h-4" />
+              Messages
+            </TabsTrigger>
+          </TabsList>
+          <TabsContent value="applications" className="space-y-4">
+            <Card>
+              <CardContent className="p-6">
+                <ApplicationsTable />
+              </CardContent>
+            </Card>
+          </TabsContent>
+          <TabsContent value="messages" className="space-y-4">
+            <Card>
+              <CardContent className="p-6">
+                <MessagesTable />
+              </CardContent>
+            </Card>
+          </TabsContent>
+        </Tabs>
       </div>
-      
-      <Tabs defaultValue="applications" className="w-full">
-        <TabsList>
-          <TabsTrigger value="applications">Applications</TabsTrigger>
-          <TabsTrigger value="messages">Messages</TabsTrigger>
-        </TabsList>
-        <TabsContent value="applications">
-          <ApplicationsTable />
-        </TabsContent>
-        <TabsContent value="messages">
-          <MessagesTable />
-        </TabsContent>
-      </Tabs>
     </div>
   );
 }
