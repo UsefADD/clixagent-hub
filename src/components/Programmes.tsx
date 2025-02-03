@@ -9,7 +9,7 @@ export const Programmes = () => {
   const [showInfluencerForm, setShowInfluencerForm] = useState(false);
 
   return (
-    <section className="py-24 bg-gradient-to-b from-black to-accent relative overflow-hidden">
+    <section id="programmes-section" className="py-24 bg-gradient-to-b from-black to-accent relative overflow-hidden">
       <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1552664730-d307ca884978')] opacity-5 bg-cover bg-center"></div>
       <div className="container mx-auto px-4 relative">
         <div className="text-center mb-16">

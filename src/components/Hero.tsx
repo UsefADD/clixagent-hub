@@ -1,7 +1,13 @@
 import { ArrowRight, Rocket, Shield, DollarSign } from "lucide-react";
-import { Link } from "react-router-dom";
 
 export const Hero = () => {
+  const scrollToProgrammes = () => {
+    const programmesSection = document.querySelector('#programmes-section');
+    if (programmesSection) {
+      programmesSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <section className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 to-gray-800 text-white px-4">
       <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d')] opacity-10 bg-cover bg-center"></div>
@@ -34,11 +40,12 @@ export const Hero = () => {
           </div>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-8">
-            <Link to="/register/affiliate" className="w-full sm:w-auto">
-              <button className="w-full sm:w-auto px-8 py-4 bg-primary text-white rounded-lg font-bold text-lg transition-all hover:translate-y-[-2px] hover:shadow-xl hover:shadow-primary/20 flex items-center justify-center gap-2">
-                Start Earning Now <ArrowRight className="w-5 h-5" />
-              </button>
-            </Link>
+            <button 
+              onClick={scrollToProgrammes}
+              className="w-full sm:w-auto px-8 py-4 bg-primary text-white rounded-lg font-bold text-lg transition-all hover:translate-y-[-2px] hover:shadow-xl hover:shadow-primary/20 flex items-center justify-center gap-2"
+            >
+              Start Earning Now <ArrowRight className="w-5 h-5" />
+            </button>
           </div>
         </div>
       </div>
