@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { useToast } from "@/components/ui/use-toast";
+import { useToast } from "@/hooks/use-toast";
 
 export const ApplicationsTable = () => {
   const { toast } = useToast();
@@ -73,7 +73,7 @@ export const ApplicationsTable = () => {
                 <Badge
                   variant={
                     app.status === "approved"
-                      ? "success"
+                      ? "secondary"
                       : app.status === "rejected"
                       ? "destructive"
                       : "default"
