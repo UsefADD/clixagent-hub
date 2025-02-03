@@ -9,35 +9,42 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
 
-const affiliateFormSchema = z.object({
+// Base schema for common fields
+const baseFormSchema = z.object({
   fullName: z.string().min(2, "Name must be at least 2 characters"),
   email: z.string().email("Invalid email address"),
   phone: z.string().min(10, "Phone number must be at least 10 digits"),
   website: z.string().url("Invalid website URL"),
-  trafficSource: z.string().min(1, "Please select a traffic source"),
-  monthlyTraffic: z.string().min(1, "Please select monthly traffic volume"),
   experience: z.string().min(1, "Please describe your experience"),
 });
 
-const influencerFormSchema = affiliateFormSchema.extend({
+// Affiliate-specific schema
+const affiliateFormSchema = baseFormSchema.extend({
+  trafficSource: z.string().min(1, "Please select a traffic source"),
+  monthlyTraffic: z.string().min(1, "Please select monthly traffic volume"),
+});
+
+// Influencer-specific schema
+const influencerFormSchema = baseFormSchema.extend({
   platform: z.string().min(1, "Please select your main platform"),
   followers: z.string().min(1, "Please select your follower range"),
   niche: z.string().min(1, "Please enter your content niche"),
 });
 
+type AffiliateFormData = z.infer<typeof affiliateFormSchema>;
+type InfluencerFormData = z.infer<typeof influencerFormSchema>;
+
 export const RegistrationForm = ({ type }: { type: "affiliate" | "influencer" }) => {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const schema = type === "affiliate" ? affiliateFormSchema : influencerFormSchema;
-  const form = useForm<z.infer<typeof schema>>({
-    resolver: zodResolver(schema),
+  const form = useForm<AffiliateFormData | InfluencerFormData>({
+    resolver: zodResolver(type === "affiliate" ? affiliateFormSchema : influencerFormSchema),
   });
 
-  const onSubmit = async (data: z.infer<typeof schema>) => {
+  const onSubmit = async (data: AffiliateFormData | InfluencerFormData) => {
     setIsSubmitting(true);
     try {
-      // Here you would typically send the data to your backend
       console.log("Form submitted:", data);
       toast({
         title: "Registration Submitted",
@@ -54,64 +61,71 @@ export const RegistrationForm = ({ type }: { type: "affiliate" | "influencer" })
     }
   };
 
+  // Common fields that appear in both forms
+  const commonFields = (
+    <>
+      <FormField
+        control={form.control}
+        name="fullName"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>Full Name</FormLabel>
+            <FormControl>
+              <Input placeholder="John Doe" {...field} />
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+
+      <FormField
+        control={form.control}
+        name="email"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>Email</FormLabel>
+            <FormControl>
+              <Input placeholder="you@example.com" type="email" {...field} />
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+
+      <FormField
+        control={form.control}
+        name="phone"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>Phone Number</FormLabel>
+            <FormControl>
+              <Input placeholder="+1 (555) 123-4567" {...field} />
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+
+      <FormField
+        control={form.control}
+        name="website"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>Website/Social Media URL</FormLabel>
+            <FormControl>
+              <Input placeholder="https://example.com" {...field} />
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+    </>
+  );
+
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-        <FormField
-          control={form.control}
-          name="fullName"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Full Name</FormLabel>
-              <FormControl>
-                <Input placeholder="John Doe" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <FormField
-          control={form.control}
-          name="email"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Email</FormLabel>
-              <FormControl>
-                <Input placeholder="you@example.com" type="email" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <FormField
-          control={form.control}
-          name="phone"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Phone Number</FormLabel>
-              <FormControl>
-                <Input placeholder="+1 (555) 123-4567" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <FormField
-          control={form.control}
-          name="website"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Website/Social Media URL</FormLabel>
-              <FormControl>
-                <Input placeholder="https://example.com" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+        {commonFields}
 
         {type === "affiliate" ? (
           <>
@@ -167,7 +181,7 @@ export const RegistrationForm = ({ type }: { type: "affiliate" | "influencer" })
           <>
             <FormField
               control={form.control}
-              name="platform"
+              name={"platform" as keyof InfluencerFormData}
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Main Platform</FormLabel>
@@ -191,7 +205,7 @@ export const RegistrationForm = ({ type }: { type: "affiliate" | "influencer" })
 
             <FormField
               control={form.control}
-              name="followers"
+              name={"followers" as keyof InfluencerFormData}
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Number of Followers</FormLabel>
@@ -215,7 +229,7 @@ export const RegistrationForm = ({ type }: { type: "affiliate" | "influencer" })
 
             <FormField
               control={form.control}
-              name="niche"
+              name={"niche" as keyof InfluencerFormData}
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Content Niche</FormLabel>
