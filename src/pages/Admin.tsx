@@ -11,36 +11,39 @@ export default function Admin() {
   const navigate = useNavigate();
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(true);
+  const [session, setSession] = useState(null);
 
   useEffect(() => {
+    // Set up auth state listener
+    supabase.auth.onAuthStateChange((event, session) => {
+      console.log("Auth state changed:", event, session);
+      if (event === 'SIGNED_OUT') {
+        navigate('/');
+      }
+      setSession(session);
+    });
+
     checkAdmin();
   }, []);
 
   const checkAdmin = async () => {
     try {
-      const { data: { user } } = await supabase.auth.getUser();
-      console.log("Current user:", user);
-      
-      if (!user) {
-        // If no user is logged in, redirect to login
-        const { error } = await supabase.auth.signInWithPassword({
-          email: 'usefadd@gmail.com',
-          password: 'your-password' // You'll need to set this up in Supabase
-        });
+      const { data: { session } } = await supabase.auth.getSession();
+      console.log("Current session:", session);
 
-        if (error) {
-          console.error("Login error:", error);
-          toast({
-            title: "Authentication Error",
-            description: "Please make sure you're logged in as an admin.",
-            variant: "destructive",
-          });
-          navigate("/");
-          return;
-        }
+      if (!session) {
+        console.log("No session found, attempting login...");
+        toast({
+          title: "Authentication Required",
+          description: "Please sign in as an admin.",
+          variant: "destructive",
+        });
+        navigate("/");
+        return;
       }
 
-      if (user?.email !== "usefadd@gmail.com") {
+      if (session.user.email !== "usefadd@gmail.com") {
+        console.log("Non-admin user detected:", session.user.email);
         toast({
           title: "Access Denied",
           description: "You don't have permission to access this page.",
@@ -50,6 +53,7 @@ export default function Admin() {
         return;
       }
 
+      console.log("Admin access granted");
       setIsLoading(false);
     } catch (error) {
       console.error("Auth check error:", error);
@@ -63,15 +67,17 @@ export default function Admin() {
   };
 
   const handleSignOut = async () => {
-    const { error } = await supabase.auth.signOut();
-    if (error) {
+    try {
+      const { error } = await supabase.auth.signOut();
+      if (error) throw error;
+      navigate("/");
+    } catch (error) {
+      console.error("Sign out error:", error);
       toast({
         title: "Error",
         description: "Failed to sign out.",
         variant: "destructive",
       });
-    } else {
-      navigate("/");
     }
   };
 
