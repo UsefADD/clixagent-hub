@@ -21,6 +21,7 @@ const handler = async (req: Request): Promise<Response> => {
   }
 
   try {
+    console.log("Received application email request");
     const { name, email, applicationType }: ApplicationEmailRequest = await req.json();
 
     console.log(`Sending application confirmation email to ${email}`);
@@ -53,7 +54,7 @@ const handler = async (req: Request): Promise<Response> => {
             </div>
             
             <p style="color: #666666; font-size: 16px; line-height: 1.5;">
-              If you have any questions in the meantime, feel free to reach out to our support team.
+              If you have any questions in the meantime, feel free to reach out to our support team at support@clixagent.com
             </p>
           </div>
           
