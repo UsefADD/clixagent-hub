@@ -7,9 +7,8 @@ import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
-import { useToast } from "@/components/ui/use-toast";
+import { useToast } from "@/hooks/use-toast";
 
-// Base schema for common fields
 const baseFormSchema = z.object({
   fullName: z.string().min(2, "Name must be at least 2 characters"),
   email: z.string().email("Invalid email address"),
@@ -137,15 +136,15 @@ export const RegistrationForm = ({ type }: { type: "affiliate" | "influencer" })
                   <FormLabel>Traffic Source</FormLabel>
                   <Select onValueChange={field.onChange} defaultValue={field.value}>
                     <FormControl>
-                      <SelectTrigger>
+                      <SelectTrigger className="w-full bg-background">
                         <SelectValue placeholder="Select your main traffic source" />
                       </SelectTrigger>
                     </FormControl>
-                    <SelectContent>
-                      <SelectItem value="search">Search Traffic</SelectItem>
-                      <SelectItem value="social">Social Media</SelectItem>
-                      <SelectItem value="email">Email Marketing</SelectItem>
-                      <SelectItem value="paid">Paid Advertising</SelectItem>
+                    <SelectContent className="bg-background border shadow-lg">
+                      <SelectItem value="search" className="hover:bg-accent">Search Traffic</SelectItem>
+                      <SelectItem value="social" className="hover:bg-accent">Social Media</SelectItem>
+                      <SelectItem value="email" className="hover:bg-accent">Email Marketing</SelectItem>
+                      <SelectItem value="paid" className="hover:bg-accent">Paid Advertising</SelectItem>
                     </SelectContent>
                   </Select>
                   <FormMessage />
@@ -161,15 +160,15 @@ export const RegistrationForm = ({ type }: { type: "affiliate" | "influencer" })
                   <FormLabel>Monthly Traffic Volume</FormLabel>
                   <Select onValueChange={field.onChange} defaultValue={field.value}>
                     <FormControl>
-                      <SelectTrigger>
+                      <SelectTrigger className="w-full bg-background">
                         <SelectValue placeholder="Select monthly traffic volume" />
                       </SelectTrigger>
                     </FormControl>
-                    <SelectContent>
-                      <SelectItem value="0-1000">0-1,000 visitors</SelectItem>
-                      <SelectItem value="1000-10000">1,000-10,000 visitors</SelectItem>
-                      <SelectItem value="10000-50000">10,000-50,000 visitors</SelectItem>
-                      <SelectItem value="50000+">50,000+ visitors</SelectItem>
+                    <SelectContent className="bg-background border shadow-lg">
+                      <SelectItem value="0-1000" className="hover:bg-accent">0-1,000 visitors</SelectItem>
+                      <SelectItem value="1000-10000" className="hover:bg-accent">1,000-10,000 visitors</SelectItem>
+                      <SelectItem value="10000-50000" className="hover:bg-accent">10,000-50,000 visitors</SelectItem>
+                      <SelectItem value="50000+" className="hover:bg-accent">50,000+ visitors</SelectItem>
                     </SelectContent>
                   </Select>
                   <FormMessage />
@@ -187,15 +186,15 @@ export const RegistrationForm = ({ type }: { type: "affiliate" | "influencer" })
                   <FormLabel>Main Platform</FormLabel>
                   <Select onValueChange={field.onChange} defaultValue={field.value}>
                     <FormControl>
-                      <SelectTrigger>
+                      <SelectTrigger className="w-full bg-background">
                         <SelectValue placeholder="Select your main platform" />
                       </SelectTrigger>
                     </FormControl>
-                    <SelectContent>
-                      <SelectItem value="instagram">Instagram</SelectItem>
-                      <SelectItem value="youtube">YouTube</SelectItem>
-                      <SelectItem value="tiktok">TikTok</SelectItem>
-                      <SelectItem value="twitter">Twitter</SelectItem>
+                    <SelectContent className="bg-background border shadow-lg">
+                      <SelectItem value="instagram" className="hover:bg-accent">Instagram</SelectItem>
+                      <SelectItem value="youtube" className="hover:bg-accent">YouTube</SelectItem>
+                      <SelectItem value="tiktok" className="hover:bg-accent">TikTok</SelectItem>
+                      <SelectItem value="twitter" className="hover:bg-accent">Twitter</SelectItem>
                     </SelectContent>
                   </Select>
                   <FormMessage />
@@ -211,15 +210,15 @@ export const RegistrationForm = ({ type }: { type: "affiliate" | "influencer" })
                   <FormLabel>Number of Followers</FormLabel>
                   <Select onValueChange={field.onChange} defaultValue={field.value}>
                     <FormControl>
-                      <SelectTrigger>
+                      <SelectTrigger className="w-full bg-background">
                         <SelectValue placeholder="Select your follower range" />
                       </SelectTrigger>
                     </FormControl>
-                    <SelectContent>
-                      <SelectItem value="1000-10000">1K-10K followers</SelectItem>
-                      <SelectItem value="10000-50000">10K-50K followers</SelectItem>
-                      <SelectItem value="50000-100000">50K-100K followers</SelectItem>
-                      <SelectItem value="100000+">100K+ followers</SelectItem>
+                    <SelectContent className="bg-background border shadow-lg">
+                      <SelectItem value="1000-10000" className="hover:bg-accent">1K-10K followers</SelectItem>
+                      <SelectItem value="10000-50000" className="hover:bg-accent">10K-50K followers</SelectItem>
+                      <SelectItem value="50000-100000" className="hover:bg-accent">50K-100K followers</SelectItem>
+                      <SelectItem value="100000+" className="hover:bg-accent">100K+ followers</SelectItem>
                     </SelectContent>
                   </Select>
                   <FormMessage />
