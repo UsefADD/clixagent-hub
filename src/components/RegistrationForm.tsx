@@ -8,6 +8,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 
 const baseFormSchema = z.object({
   fullName: z.string().min(2, "Name must be at least 2 characters"),
@@ -44,15 +45,51 @@ export const RegistrationForm = ({ type }: { type: "affiliate" | "influencer" })
   const onSubmit = async (data: AffiliateFormData | InfluencerFormData) => {
     setIsSubmitting(true);
     try {
-      console.log("Form submitted:", data);
+      console.log("Submitting application:", data);
+      
+      // Save to Supabase
+      const { error: dbError } = await supabase.from("applications").insert({
+        full_name: data.fullName,
+        email: data.email,
+        phone: data.phone,
+        website: data.website,
+        experience: data.experience,
+        application_type: type,
+        ...(type === "affiliate" ? {
+          traffic_source: (data as AffiliateFormData).trafficSource,
+          monthly_traffic: (data as AffiliateFormData).monthlyTraffic,
+        } : {
+          platform: (data as InfluencerFormData).platform,
+          followers: (data as InfluencerFormData).followers,
+          niche: (data as InfluencerFormData).niche,
+        }),
+      });
+
+      if (dbError) throw dbError;
+
+      // Send confirmation email
+      const { error: emailError } = await supabase.functions.invoke('send-application-email', {
+        body: {
+          name: data.fullName,
+          email: data.email,
+          applicationType: type === "affiliate" ? "Affiliate" : "Influencer"
+        },
+      });
+
+      if (emailError) throw emailError;
+
       toast({
-        title: "Registration Submitted",
+        title: "Application Submitted",
         description: "We'll review your application and get back to you soon!",
       });
-    } catch (error) {
+
+      // Reset form
+      form.reset();
+    } catch (error: any) {
+      console.error("Application submission error:", error);
       toast({
         title: "Error",
-        description: "Something went wrong. Please try again.",
+        description: error.message || "Something went wrong. Please try again.",
         variant: "destructive",
       });
     } finally {
