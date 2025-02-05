@@ -27,7 +27,7 @@ const handler = async (req: Request): Promise<Response> => {
     console.log(`Sending application confirmation email to ${email}`);
 
     const emailResponse = await resend.emails.send({
-      from: "ClixAgent Hub <onboarding@resend.dev>",
+      from: "ClixAgent Hub <no-reply@clixagent.com>",
       to: [email],
       subject: "Application Received - ClixAgent Hub",
       html: `
