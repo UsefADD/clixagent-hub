@@ -1,3 +1,4 @@
+
 import { Building2, Target, Trophy, Users2, Rocket, Shield } from "lucide-react";
 
 export const AboutUs = () => {
@@ -54,7 +55,7 @@ export const AboutUs = () => {
         <div className="mt-20 max-w-4xl mx-auto text-center">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="p-6">
-              <h4 className="text-4xl font-bold text-primary mb-2">50K+</h4>
+              <h4 className="text-4xl font-bold text-primary mb-2">15K+</h4>
               <p className="text-gray-400">Active Affiliates</p>
             </div>
             <div className="p-6">
@@ -66,6 +67,11 @@ export const AboutUs = () => {
               <p className="text-gray-400">Expert Support</p>
             </div>
           </div>
+        </div>
+
+        <div className="mt-16 text-center">
+          <h3 className="text-2xl font-bold text-white mb-4">Visit us</h3>
+          <p className="text-gray-400">4707 Cambridge Place<br />Annapolis, MD 21401</p>
         </div>
       </div>
     </section>
