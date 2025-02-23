@@ -1,3 +1,4 @@
+
 import { Mail, Phone, MapPin } from "lucide-react";
 import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
@@ -77,7 +78,7 @@ export const ContactUs = () => {
                 <div>
                   <h3 className="font-semibold">Visit Us</h3>
                   <p className="text-gray-400">
-                    123 Affiliate Street, Marketing City, MC 12345
+                    4707 Cambridge Place<br />Annapolis, MD 21401
                   </p>
                 </div>
               </div>
