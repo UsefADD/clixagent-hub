@@ -68,11 +68,6 @@ export const AboutUs = () => {
             </div>
           </div>
         </div>
-
-        <div className="mt-16 text-center">
-          <h3 className="text-2xl font-bold text-white mb-4">Visit us</h3>
-          <p className="text-gray-400">4707 Cambridge Place<br />Annapolis, MD 21401</p>
-        </div>
       </div>
     </section>
   );
